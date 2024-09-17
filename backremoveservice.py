@@ -7,7 +7,7 @@ import uuid
 app = Flask(__name__)
 
 # Use an environment variable for the API key
-API_KEY = os.environ.get('API_KEY', 'default_api_key')
+API_KEY = os.environ.get('FRONTEND_API_KEY', 'default_frontend_api_key')
 
 def require_api_key(view_function):
     def decorated_function(*args, **kwargs):
@@ -88,6 +88,16 @@ def api_remove_background():
         
         return jsonify({'results': results}), 200
 
+# ... existing imports and code ...
+
+@app.route('/', methods=['GET', 'POST'])
+@require_api_key
+def default_route():
+    return jsonify({
+        'status': 'operational'
+    }), 200
+
+# ... rest of the existing code ...
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
