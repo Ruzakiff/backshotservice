@@ -1,1 +1,1 @@
-web: gunicorn --worker-class gevent autoediting.backremoveservice:app
+web: python backremoveservice.py
